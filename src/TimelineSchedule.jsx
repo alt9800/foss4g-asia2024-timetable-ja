@@ -7,11 +7,20 @@ const TimelineSchedule = () => {
   const [selectedSession, setSelectedSession] = useState(null);
 
   useEffect(() => {
-    // base path を考慮したパスに変更
-    fetch('./foss4g_asia_2024_sessions_translated.json')
-      .then(response => response.json())
-      .then(data => setSessions(data))
-      .catch(error => console.error('Error loading sessions:', error));
+    fetch('/foss4g-asia2024-timetable-ja/foss4g_asia_2024_sessions_translated.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Loaded data:', data); // データロードの確認用
+        setSessions(data);
+      })
+      .catch(error => {
+        console.error('Error loading sessions:', error);
+      });
   }, []);
 
   const generateTimeSlots = () => {

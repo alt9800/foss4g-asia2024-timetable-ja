@@ -13,5 +13,5 @@ export default defineConfig({
 
 export default defineConfig({
   plugins: [react()],
-  base: '/foss4g-asia2024-timetable-ja/',
+  base: '/foss4g-asia2024-timetable-ja/'
 })
