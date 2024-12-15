@@ -7,7 +7,11 @@ const TimelineSchedule = () => {
   const [selectedSession, setSelectedSession] = useState(null);
 
   useEffect(() => {
-    fetch('/foss4g-asia2024-timetable-ja/foss4g_asia_2024_sessions_translated.json')
+    // import.meta.env.BASE_URL を使用してベースパスを取得
+    const jsonPath = `${import.meta.env.BASE_URL}foss4g_asia_2024_sessions_translated.json`;
+    console.log('Fetching JSON from:', jsonPath); // デバッグ用
+  
+    fetch(jsonPath)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -15,7 +19,7 @@ const TimelineSchedule = () => {
         return response.json();
       })
       .then(data => {
-        console.log('Loaded data:', data); // データロードの確認用
+        console.log('Loaded data:', data); // デバッグ用
         setSessions(data);
       })
       .catch(error => {

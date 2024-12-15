@@ -9,9 +9,14 @@ export default defineConfig({
 */
 
 
-// Github Configuration
-
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/foss4g-asia2024-timetable-ja/'
+  base: '/foss4g-asia2024-timetable-ja/',
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    // ソースマップを生成して問題を特定しやすくする
+    sourcemap: true,
+  },
 })
