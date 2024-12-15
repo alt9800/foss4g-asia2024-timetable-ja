@@ -7,7 +7,8 @@ const TimelineSchedule = () => {
   const [selectedSession, setSelectedSession] = useState(null);
 
   useEffect(() => {
-    fetch('/foss4g_asia_2024_sessions_translated.json')
+    // base path を考慮したパスに変更
+    fetch('./foss4g_asia_2024_sessions_translated.json')
       .then(response => response.json())
       .then(data => setSessions(data))
       .catch(error => console.error('Error loading sessions:', error));
