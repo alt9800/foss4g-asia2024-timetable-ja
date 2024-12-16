@@ -69,15 +69,16 @@ const TimelineSchedule = () => {
 
   const Modal = ({ session, onClose }) => {
     if (!session) return null;
-
+  
     return (
       <div className="modal-backdrop" onClick={onClose}>
         <div className="modal-content" onClick={e => e.stopPropagation()}>
+          <button className="modal-close" onClick={onClose}>×</button>
           <div className="modal-header">
             <h2>{session.title}</h2>
             <a 
-              href={session.url}
-              target="_blank"
+              href={session.url} 
+              target="_blank" 
               rel="noopener noreferrer"
               className="external-link"
             >
@@ -94,11 +95,23 @@ const TimelineSchedule = () => {
             </div>
             <div className="session-abstract">
               <h3>Abstract</h3>
-              <p>{session.abstract_ja}</p>
+              <p>{session.abstract}</p>
             </div>
+            {session.abstract_ja && (
+              <div className="session-abstract-ja">
+                <h3>概要</h3>
+                <p>{session.abstract_ja}</p>
+              </div>
+            )}
             {session.description && (
               <div className="session-description">
                 <h3>Description</h3>
+                <p>{session.description}</p>
+              </div>
+            )}
+            {session.description_ja && (
+              <div className="session-description-ja">
+                <h3>説明</h3>
                 <p>{session.description_ja}</p>
               </div>
             )}
@@ -106,7 +119,7 @@ const TimelineSchedule = () => {
         </div>
       </div>
     );
-  };
+  };ff
 
   return (
     <div className="timeline-container">

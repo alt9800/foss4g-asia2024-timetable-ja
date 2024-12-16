@@ -77,6 +77,10 @@
   cursor: pointer;
   transition: opacity 0.2s;
   overflow: hidden;
+  /*-----*/
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .session-card:hover {
@@ -94,14 +98,16 @@
   font-weight: 500;
   margin-bottom: 0.5rem;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;  /* 3行に制限 */
   -webkit-box-orient: vertical;
   overflow: hidden;
+  margin: 0.5rem 0;
 }
 
 .session-speaker {
   font-size: 0.75rem;
   opacity: 0.9;
+  margin-top: auto;  /* 下部に配置 */
 }
 
 /* Modal styles */
@@ -168,4 +174,66 @@
   font-size: 0.875rem;
   margin: 0;
   line-height: 1.5;
+}
+
+/*
+デザイン修正👇
+*/
+
+
+/* タイムスロットの高さを増やす */
+.time-slot {
+  height: 80px;  /* 64px から 80px に変更 */
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
+}
+
+/* トラックコンテンツの最小高さも調整 */
+.track-content {
+  position: relative;
+  min-height: 1360px; /* 17 time slots * 80px */
+}
+
+/* モーダルのスタイルを改善 */
+.modal-content {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  max-width: 36rem;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;  /* 閉じるボタンの位置決めのため */
+}
+
+/* 閉じるボタンのスタイル */
+.modal-close {
+  position: sticky;
+  top: 0;
+  right: 0;
+  padding: 0.5rem;
+  background: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  float: right;
+}
+
+.modal-close:hover {
+  color: #666;
+}
+
+/* モーダルヘッダーのスタイル調整 */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  padding-right: 2rem; /* 閉じるボタンのスペース */
 }
