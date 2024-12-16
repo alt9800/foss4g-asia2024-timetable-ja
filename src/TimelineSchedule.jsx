@@ -74,8 +74,8 @@ const TimelineSchedule = () => {
       <div
         className="session-card"
         style={{
-          top: `${(gridPosition - 1) * 80}px`,
-          height: `${durationSpan * 80}px`,
+          top: `${(gridPosition - 1) * 100}px`, // 高さを100pxに変更
+          height: `${durationSpan * 100}px`, // 高さを100pxに変更
           minHeight: '120px',
         }}
         onClick={onClick}
