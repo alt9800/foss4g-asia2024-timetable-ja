@@ -10,7 +10,7 @@ const TimelineSchedule = () => {
     // import.meta.env.BASE_URL を使用してベースパスを取得
     const jsonPath = `${import.meta.env.BASE_URL}foss4g_asia_2024_sessions_translated.json`;
     console.log('Fetching JSON from:', jsonPath); // デバッグ用
-  
+
     fetch(jsonPath)
       .then(response => {
         if (!response.ok) {
@@ -69,16 +69,16 @@ const TimelineSchedule = () => {
 
   const Modal = ({ session, onClose }) => {
     if (!session) return null;
-  
+
     return (
       <div className="modal-backdrop" onClick={onClose}>
         <div className="modal-content" onClick={e => e.stopPropagation()}>
           <button className="modal-close" onClick={onClose}>×</button>
           <div className="modal-header">
             <h2>{session.title}</h2>
-            <a 
-              href={session.url} 
-              target="_blank" 
+            <a
+              href={session.url}
+              target="_blank"
               rel="noopener noreferrer"
               className="external-link"
             >
@@ -119,7 +119,7 @@ const TimelineSchedule = () => {
         </div>
       </div>
     );
-  };ff
+  }; ff
 
   return (
     <div className="timeline-container">
@@ -146,23 +146,54 @@ const TimelineSchedule = () => {
               <div key={room} className="room-track">
                 <div className="room-header">{room}</div>
                 <div className="track-content">
+                // セッションカードのレンダリング部分
                   {sessions
                     .filter(session => session.date === date && session.location === room)
-                    .map(session => (
-                      <div
-                        key={session.url}
-                        className="session-card"
-                        style={{
-                          top: `${(getGridPosition(session.time_range) - 1) * 64}px`,
-                          height: `${getDurationSpan(session.time_range) * 64}px`,
-                        }}
-                        onClick={() => setSelectedSession(session)}
-                      >
-                        <div className="session-time">{session.time_range}</div>
-                        <h3 className="session-title">{session.title}</h3>
-                        <div className="session-speaker">{session.speaker}</div>
-                      </div>
-                    ))}
+                    .map(session => {
+                      const gridPosition = getGridPosition(session.time_range);
+                      const durationSpan = getDurationSpan(session.time_range);
+
+                      return (
+                        <div
+                          key={session.url || `${session.date}-${session.time_range}`}
+                          className="session-card"
+                          style={{
+                            top: `${(gridPosition - 1) * 80}px`,
+                            height: `${durationSpan * 80}px`,
+                            position: 'absolute',
+                            left: '4px',
+                            right: '4px',
+                            backgroundColor: '#22c55e',
+                            borderRadius: '0.5rem',
+                            padding: '0.75rem',
+                            color: 'white',
+                            cursor: 'pointer',
+                            overflow: 'hidden'
+                          }}
+                          onClick={() => setSelectedSession(session)}
+                        >
+                          <div className="session-time" style={{ fontSize: '0.875rem', fontWeight: 'bold' }}>
+                            {session.time_range}
+                          </div>
+                          <h3 className="session-title" style={{
+                            fontSize: '0.875rem',
+                            margin: '0.5rem 0',
+                            display: '-webkit-box',
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden'
+                          }}>
+                            {session.title}
+                          </h3>
+                          <div className="session-speaker" style={{
+                            fontSize: '0.75rem',
+                            marginTop: 'auto'
+                          }}>
+                            {session.speaker}
+                          </div>
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             ))}
@@ -171,9 +202,9 @@ const TimelineSchedule = () => {
       ))}
 
       {selectedSession && (
-        <Modal 
-          session={selectedSession} 
-          onClose={() => setSelectedSession(null)} 
+        <Modal
+          session={selectedSession}
+          onClose={() => setSelectedSession(null)}
         />
       )}
     </div>
