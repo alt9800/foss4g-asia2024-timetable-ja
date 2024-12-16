@@ -39,7 +39,7 @@ const TimelineSchedule = () => {
     return (hours - 9) * 2 + (minutes === 30 ? 1 : 0) + 1;
   };
 
-  // セッションの長さをグリッドスパンに変換
+  // セッションの長さを計算
   const getDurationSpan = (timeRange) => {
     const [start, end] = timeRange.split('-');
     const [startHour, startMin] = start.split(':').map(Number);
@@ -65,31 +65,32 @@ const TimelineSchedule = () => {
     '2024-12-18'
   ];
 
-// セッションカードコンポーネント
-const SessionCard = ({ session, onClick }) => {
-  const gridPosition = getGridPosition(session.time_range);
-  const durationSpan = getDurationSpan(session.time_range);
+  // セッションカードコンポーネント
+  const SessionCard = ({ session, onClick }) => {
+    const gridPosition = getGridPosition(session.time_range);
+    const durationSpan = getDurationSpan(session.time_range);
 
-  return (
-    <div
-      className="session-card"
-      style={{
-        top: `${(gridPosition - 1) * 80}px`,
-        height: `${durationSpan * 80}px`,
-      }}
-      onClick={onClick}
-    >
-      <div className="session-time">{session.time_range}</div>
-      <h3 className="session-title">{session.title}</h3>
-      <div className="session-speaker">{session.speaker}</div>
-    </div>
-  );
-};
+    return (
+      <div
+        className="session-card"
+        style={{
+          top: `${(gridPosition - 1) * 80}px`,
+          height: `${durationSpan * 80}px`,
+          minHeight: '120px',
+        }}
+        onClick={onClick}
+      >
+        <div className="session-time">{session.time_range}</div>
+        <h3 className="session-title">{session.title}</h3>
+        <div className="session-speaker">{session.speaker}</div>
+      </div>
+    );
+  };
 
   // モーダルコンポーネント
   const SessionModal = ({ session, onClose }) => {
     if (!session) return null;
-  
+
     return (
       <div className="modal-backdrop" onClick={onClose}>
         <div className="modal-content" onClick={e => e.stopPropagation()}>

@@ -38,11 +38,23 @@
   display: flex;
   align-items: center;
   padding-right: 1rem;
+  position: relative;
+}
+
+.time-slot::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 8px;
+  height: 1px;
+  background-color: #eee;
 }
 
 .time-slot span {
   font-size: 0.875rem;
   color: #666;
+  font-weight: 500;
 }
 
 /* Room track styles */
@@ -53,7 +65,7 @@
 
 .room-header {
   height: 48px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 2px solid #eee;
   padding: 0 1rem;
   display: flex;
   align-items: center;
@@ -66,7 +78,6 @@
 
 .track-content {
   position: relative;
-  min-height: 1360px; /* 17 time slots * 80px */
 }
 
 /* Session card styles */
@@ -80,15 +91,24 @@
   color: white;
   cursor: pointer;
   overflow: hidden;
-  transition: opacity 0.2s;
+  transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.session-card:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 .session-time {
   font-size: 0.75rem;
   font-weight: bold;
   margin-bottom: 0.25rem;
+  flex-shrink: 0;
 }
 
 .session-title {
@@ -97,9 +117,10 @@
   margin: 0.25rem 0;
   flex-grow: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  min-height: 2.5em;
 }
 
 .session-speaker {
@@ -107,7 +128,10 @@
   opacity: 0.9;
   margin-top: auto;
   padding-top: 0.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
 }
+
 /* Modal styles */
 .modal-backdrop {
   position: fixed;
@@ -155,16 +179,31 @@
   color: #000;
 }
 
+.modal-header {
+  padding-right: 3rem;
+  margin-bottom: 1rem;
+}
+
 .modal-title {
   font-size: 1.25rem;
   font-weight: bold;
-  margin: 0 2rem 1rem 0;
+  margin: 0;
   line-height: 1.4;
 }
 
-.modal-body {
-  font-size: 0.875rem;
-  line-height: 1.6;
+.external-link {
+  position: absolute;
+  top: 1rem;
+  right: 3rem;
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0.5rem;
+}
+
+.external-link:hover {
+  color: #1d4ed8;
 }
 
 .session-meta {
@@ -180,6 +219,11 @@
 .meta-item:not(:last-child)::after {
   content: "•";
   margin-left: 1rem;
+}
+
+.modal-body {
+  font-size: 0.875rem;
+  line-height: 1.6;
 }
 
 .session-speaker-info,
